@@ -1,0 +1,8 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    height: 56px;
+    padding: 0 16px;
+    background-color: rgb(5, 5, 82);
+    justify-content: space-between;
+}
