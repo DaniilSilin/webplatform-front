@@ -1,0 +1,28 @@
+.root {
+  position: absolute;
+  background-color: #050552;
+  height: 100%;
+  width: 150px;
+  color: white;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  transition: width 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.root.closed {
+  width: 0px;
+}
+
+.header {
+  height: 50px;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap; /* Чтобы текст не "прыгал" при закрытии */
+}
+
+.siderToggle {
+}

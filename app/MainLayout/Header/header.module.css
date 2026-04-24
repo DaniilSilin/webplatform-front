@@ -1,8 +1,32 @@
 .root {
-    display: flex;
-    flex-direction: row;
-    height: 56px;
-    padding: 0 16px;
-    background-color: rgb(5, 5, 82);
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  height: 56px;
+  padding: 0 16px;
+  background-color: rgb(5, 5, 82);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftPart {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  align-items: center;
+  gap: 10px;
+}
+
+.siderToggle {
+  display: flex;
+  padding: 6px;
+}
+
+.siderToggle:hover {
+  cursor: pointer;
+  background-color: gray;
+  border-radius: 50%;
+}
+
+.logo {
+  color: white;
 }

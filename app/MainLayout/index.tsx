@@ -11,6 +11,7 @@ export interface Props {}
 
 export default function MainLayout() {
   const [displayKeyboard, setDisplayKeyboard] = React.useState(false)
+  const [displaySider, setDisplaySider] = React.useState(false)
 
   const onChange = React.useCallback((input: string) => {
     console.log("Input changed", input);
@@ -23,8 +24,8 @@ export default function MainLayout() {
   return (
     <div>
       <KeyboardContext.Provider value={setDisplayKeyboard}>
-        <Header />
-        <Sider />
+        <Sider displaySider={displaySider} setDisplaySider={setDisplaySider} />
+        <Header displaySider={displaySider} setDisplaySider={setDisplaySider} />
         {displayKeyboard && (
           <Keyboard
             onChange={onChange}

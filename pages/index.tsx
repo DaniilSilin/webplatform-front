@@ -3,15 +3,22 @@ import Head from "next/head"
 import Image from "next/image"
 import styles from "@/styles/Home.module.css"
 import MainLayout from "@/app/MainLayout"
+import localFont from "next/font/local";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const commissioner = localFont({
+  src: [
+    {
+      path: "../styles/fonts/Commissioner-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../styles/fonts/Commissioner-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-commissioner",
 })
 
 export default function Home() {
@@ -23,7 +30,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
+      <div className={commissioner.className}>
         <main>
           <MainLayout />
         </main>

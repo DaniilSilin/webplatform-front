@@ -4,22 +4,25 @@ import Input from "../../components/form/Input"
 import styles from "./header.module.css"
 
 export interface Props {
+  displaySider: boolean
+  setDisplaySider: (value: boolean) => void
 }
 
-export default function Header() {
+export default function Header({ setDisplaySider }: Props) {
   const [value, setValue] = React.useState("")
 
-  const handleToggleMenuButton = React.useCallback(() => {
-    setDisplaySider(value => !value)
-  }, [])
+  const toggleSider = React.useCallback(
+    () => setDisplaySider(prev => !prev),
+    []
+  )
 
   return (
     <header className={styles.root}>
-      <div>
-        <div onClick={handleToggleMenuButton}>
-          <HiOutlineMenu />
+      <div className={styles.leftPart}>
+        <div className={styles.siderToggle} onClick={toggleSider}>
+          <HiOutlineMenu size={24} />
         </div>
-        NewTube
+        <div>NewTube</div>
       </div>
       <div>
         <Input value={value} setValue={setValue} width={540} height={40} />
