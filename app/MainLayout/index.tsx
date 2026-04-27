@@ -7,7 +7,9 @@ import 'react-simple-keyboard/build/css/index.css';
 
 import KeyboardContext from "../contexts/Keyboard";
 
-export interface Props {}
+export interface Props {
+  children: ReactNode
+}
 
 export default function MainLayout() {
   const [displayKeyboard, setDisplayKeyboard] = React.useState(false)
@@ -26,6 +28,7 @@ export default function MainLayout() {
       <KeyboardContext.Provider value={setDisplayKeyboard}>
         <Sider displaySider={displaySider} setDisplaySider={setDisplaySider} />
         <Header displaySider={displaySider} setDisplaySider={setDisplaySider} />
+        
         {displayKeyboard && (
           <Keyboard
             onChange={onChange}
