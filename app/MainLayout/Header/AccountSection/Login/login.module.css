@@ -1,0 +1,17 @@
+.root {
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid white;
+  padding: 5px;
+  align-items: center;
+  gap: 10px;
+}
+
+.loginText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.root:hover {
+  background-color: rgb(127, 120, 120);
+}

@@ -1,77 +1,74 @@
 import React, { ChangeEvent } from "react"
-
-import { MdOutlineClear } from "react-icons/md"
-import { FaRegKeyboard } from "react-icons/fa6";
-import Keyboard from 'react-simple-keyboard';
-import KeyboardContext from "@/app/contexts/Keyboard";
-
-import 'react-simple-keyboard/build/css/index.css';
+import { FaEye, FaEyeSlash } from "react-icons/fa"
+import TextField from "@mui/material/TextField"
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
 import styles from "./input.module.css"
 
 export interface Props {
+  height?: number
+  width?: number
   value: string
   setValue: (value: string) => void
-  width: number
-  height: number
+  label: string
+  isPassword?: boolean
+  placeholder?: string
+  autocomplete?: boolean
+  validationMessage?: string
 }
 
-export default function Input({ value, width, height, setValue }: Props) {
-  const [isFocused, setIsFocused] = React.useState(false)
+export default function Input({
+  value,
+  label,
+  setValue,
+  isPassword,
+  placeholder,
+  autocomplete,
+  validationMessage,
+}: Props) {
+  const [isPasswordVisible, setIsPasswordVisible] =
+    React.useState<boolean>(false)
 
-  const setDisplayKeyboard = React.useContext(KeyboardContext);
-
-  const handleFocus = React.useCallback(() => {
-    setIsFocused(true)
-  }, [])
-
-  const handleBlur = React.useCallback(() => {
-    setIsFocused(true)
-  }, [])
-
-  const valueOnChange = React.useCallback(
+  const handleChangeValue = React.useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value)
     },
     [setValue]
   )
 
-  const handleClearInput = React.useCallback(() => {
-    setValue("")
-  }, [])
+  const inputType = isPassword && !isPasswordVisible ? "password" : "text";
 
-  const handleToggleKeyboard = React.useCallback(() => {
-    setDisplayKeyboard((prev) => !prev)
-  }, [])
-
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
-
-  React.useEffect(() => {
-
+  const handleTogglePasswordVisibility = React.useCallback(() => {
+    setIsPasswordVisible(value => !value)
   }, [])
 
   return (
-    <div className={styles.root}>
-      <form onSubmit={handleSubmit}>
-        <input
-          className={styles.mainInput}
-          type={"text"}
-          style={{ width, height }}
-          placeholder="Введите запрос"
-          onFocus={handleFocus}
-          onChange={valueOnChange}
+    <div>
+      <div>{label}</div>
+      <div className={styles.inputContainer}>
+        <TextField
+          type={inputType}
           value={value}
-          spellCheck={false}
+          onChange={handleChangeValue}
+          placeholder={placeholder}
+          style={{ backgroundColor: "white" }}
+          autoComplete={autocomplete ? "on" : "off"}
+          slotProps={{
+            input: {
+              endAdornment: isPassword && (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleTogglePasswordVisibility}
+                    edge="end"
+                    size="small"
+                  >
+                    {isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
         />
-      </form>
-      {value && (
-        <div onClick={handleClearInput} className={styles.clearButton}>
-          <MdOutlineClear />
-        </div>
-      )}
-      <div onClick={handleToggleKeyboard} className={styles.keyboard}>
-        <FaRegKeyboard />
       </div>
     </div>
   )

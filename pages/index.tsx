@@ -1,9 +1,14 @@
+import { serverSideTranslations } from "next-i18next/pages/serverSideTranslations"
 import { Geist, Geist_Mono } from "next/font/google"
 import Head from "next/head"
 import Image from "next/image"
 import styles from "@/styles/Home.module.css"
 import MainLayout from "@/app/MainLayout"
 import localFont from "next/font/local";
+import { wrapper } from "@/app/store"
+import { accountsApi } from "@/app/store/api/accountsApi"
+import { getCookie } from "cookies-next"
+
 
 const commissioner = localFont({
   src: [
@@ -39,4 +44,23 @@ export default function Home() {
   )
 }
 
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async ({ req, res, locale }) => {
+    const rawCookies = req.headers.cookie || "";
+    // Ищем куку access и забираем только её значение
+    const tokenMatch = rawCookies.match(/access=([^;]+)/);
+    const token = tokenMatch ? tokenMatch[1] : null;
 
+    if (token) {
+      // ПЕРЕДАЕМ СТРОКУ ТОКЕНА
+      await store.dispatch(accountsApi.endpoints.retrieveProfile.initiate(token));
+    }
+
+    await Promise.all(store.dispatch(accountsApi.util.getRunningQueriesThunk()));
+    return {
+      props: {
+        ...(await serverSideTranslations(locale ?? "ru-RU", ["common"])),
+      },
+    }
+  }
+);

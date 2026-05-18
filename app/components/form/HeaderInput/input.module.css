@@ -1,0 +1,48 @@
+.root {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 4px 0 16px;
+  color: white;
+}
+
+.mainInput {
+    /* 1. Убираем стандартную рамку и фон */
+    border: none;
+    background: transparent;
+    outline: none; /* Убирает синий контур при клике */
+  
+    /* 2. Сбрасываем системные стили (важно для Safari/iOS) */
+    appearance: none;
+    -webkit-appearance: none;
+  
+    /* 3. Наследуем шрифты от родителя */
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  
+    /* 4. Заставляем занимать всё доступное место в flex-контейнере */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    color: #aaa
+  }
+
+.clearButton {
+  display: flex;
+}
+
+.clearButton .active {
+  cursor: pointer;
+}
+
+.keyboard {
+  display: flex;
+}
+
+.keyboard .active {
+  cursor: pointer;
+}

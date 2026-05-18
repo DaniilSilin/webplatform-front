@@ -1,6 +1,7 @@
 import React from "react"
 import { HiOutlineMenu } from "react-icons/hi"
-import Input from "../../components/form/Input"
+import Input from "../../components/form/HeaderInput"
+import AccountSection from "./AccountSection"
 import styles from "./header.module.css"
 
 export interface Props {
@@ -27,7 +28,7 @@ export default function Header({ setDisplaySider }: Props) {
       <div>
         <Input value={value} setValue={setValue} width={540} height={40} />
       </div>
-      <div></div>
+      <AccountSection />
     </header>
   )
 }
