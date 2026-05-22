@@ -1,7 +1,7 @@
 import { getCookie } from "cookies-next"
 import { HYDRATE } from "next-redux-wrapper"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { JwtTokens, Login, Register } from "../../types"
+import { JwtTokens, Login, Register, VerifyEmail } from "../../types"
 
 const BASE_URL = "http://127.0.0.1:8000/api/v1/accounts/"
 
@@ -26,6 +26,13 @@ export const accountsApi = createApi({
     },
   }),
   endpoints: build => ({
+    verifyEmail: build.mutation<any, VerifyEmail>({
+      query: ({ email, token }) => ({
+        url: "verify_email/",
+        method: "POST",
+        body: { email, token },
+      }),
+    }),
     register: build.mutation<any, Register>({
       query: ({ username, email, password }) => ({
         url: "register/",
@@ -60,6 +67,7 @@ export const accountsApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
+  useVerifyEmailMutation,
   useLoginMutation,
   useRegisterMutation,
   useLazyRetrieveProfileQuery,

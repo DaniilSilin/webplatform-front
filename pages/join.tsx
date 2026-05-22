@@ -1,11 +1,11 @@
 import React from "react"
-import Register from "@/app/components/join"
+import Join from "@/app/components/join"
 import MainLayout from "@/app/MainLayout"
 
-export default function LoginPage() {
+export default function JoinPage() {
   return (
     <MainLayout>
-      <Register />
+      <Join />
     </MainLayout>
   )
 }

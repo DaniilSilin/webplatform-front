@@ -2,8 +2,8 @@ import React, { ChangeEvent } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { SmartCaptcha } from "@yandex/smart-captcha"
-import { useRegisterMutation } from "@/app/store/api/accountsApi"
 import { confirmEmailValidator, emailValidator } from "../../validators/index"
+import { accountsApi } from '../../store/api/accountsApi'
 import AgreementCheckbox from "../form/AgreementCheckbox"
 import Input from "../form/Input"
 
@@ -19,7 +19,7 @@ const agreementText = (
   </div>
 )
 
-export default function Register() {
+export default function Join() {
   const router = useRouter()
   const [email, setEmail] = React.useState("")
   const [confirmEmail, setConfirmEmail] = React.useState("")
@@ -32,11 +32,11 @@ export default function Register() {
     agreement: "",
   })
 
-  const [registerUser] = useRegisterMutation()
+  const [verifyEmail] = accountsApi.useVerifyEmailMutation()
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
-    register()
+    join()
   }
 
   const handleValidateForm = React.useCallback(() => {
@@ -54,18 +54,17 @@ export default function Register() {
     return !emailValidationResult && !confirmEmailValidationResult
   }, [email, confirmEmail, token])
 
-  const register = async () => {
+  const join = async () => {
     const formValidation = handleValidateForm()
     if (formValidation) {
       try {
-        const result = await registerUser({
+        const result = await verifyEmail({
           email,
-          confirm_email: confirmEmail,
-          token,
+          token
         })
-        if (!result.error) {
-          router.push("login/")
-        }
+        // if (!result.error) {
+        //   router.push("login/")
+        // }
       } catch {}
     }
   }
@@ -87,17 +86,17 @@ export default function Register() {
           label={"Подтвердите адрес эл. почты"}
           autocomplete
         />
-        {/* <SmartCaptcha
+        <SmartCaptcha
           sitekey={yandexCaptchaKey}
           onSuccess={setToken}
           language={"ru"}
-        /> */}
+        />
         <AgreementCheckbox
           agreement={agreementText}
           setIsAgreementChecked={setIsAgreementChecked}
           isAgreementChecked={isAgreementChecked}
         />
-        <button onClick={register}>Зарегистрироваться</button>
+        <button onClick={join}>Зарегистрироваться</button>
       </form>
     </div>
   )
