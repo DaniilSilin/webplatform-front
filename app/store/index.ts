@@ -17,7 +17,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import { accountsApi } from "./api/accountsApi";
-import djangoSliceReducer from "./slices/storeSlice"; // твой файл выше
+import djangoSliceReducer from "./slices/storeSlice";
 
 export const makeStore = () =>
   configureStore({

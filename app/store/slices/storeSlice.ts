@@ -33,6 +33,7 @@ export const storeSlice = createSlice({
         state.user = action.payload; 
       }
     )
+    
   },
 })
 

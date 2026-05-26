@@ -7,9 +7,7 @@ import { confirmEmailValidator, emailValidator } from "../../validators/index"
 import AgreementCheckbox from "../form/AgreementCheckbox"
 import Input from "../form/Input"
 
-export interface Props {
-  setCreationId: (value: string) => void
-}
+export interface Props {}
 
 const yandexCaptchaKey = process.env.NEXT_PUBLIC_YANDEX_CAPTCHA_KEY
 
@@ -21,7 +19,7 @@ const agreementText = (
   </div>
 )
 
-export default function Join({ setCreationId }: Props) {
+export default function Register() {
   const router = useRouter()
   const [email, setEmail] = React.useState("")
   const [confirmEmail, setConfirmEmail] = React.useState("")
@@ -33,8 +31,16 @@ export default function Join({ setCreationId }: Props) {
     captcha: "",
     agreement: "",
   })
-
   const [verifyEmail] = accountsApi.useVerifyEmailMutation()
+
+
+//   const [creationId, setCreationId] = React.useState("")
+
+//   const { data: checkEmailVerifiedStatus } =
+//     accountsApi.useCheckEmailVerifiedQuery(
+//       { creation_id: creationId },
+//       { pollingInterval: 2000, skip: !creationId }
+//     )
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -65,13 +71,9 @@ export default function Join({ setCreationId }: Props) {
           token,
         })
         if (!result.error) {
-          console.log("result.data.creation_id")
-          console.log(result.data.creation_id)
           setCreationId(result.data.creation_id)
         }
-      } catch {
-
-      }
+      } catch {}
     }
   }
 

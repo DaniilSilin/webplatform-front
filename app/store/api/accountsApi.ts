@@ -28,10 +28,26 @@ export const accountsApi = createApi({
   endpoints: build => ({
     verifyEmail: build.mutation<any, VerifyEmail>({
       query: ({ email, token }) => ({
-        url: "verify_email/",
+        url: "join/verify_email/",
         method: "POST",
         body: { email, token },
       }),
+    }),
+    checkEmailVerified: build.query<{ success: number }, { creation_id: string }>({
+      query: ({ creation_id }) => ({
+        url: "join/check_email_verified/",
+        method: "POST",
+        body: { creation_id }
+      })
+    }),
+    completeEmailVerify: build.query<{ success: number, details: string }, { creation_id: string, secure_token: string }>({
+      query: ({ secure_token, creation_id }) => ({
+        url: "join/complete_email_verify/",
+        params: {
+          secure_token,
+          creation_id
+        }
+      })
     }),
     register: build.mutation<any, Register>({
       query: ({ username, email, password }) => ({

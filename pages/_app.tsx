@@ -1,15 +1,11 @@
 import "@/styles/globals.css"
-import { wrapper } from "../app/store"
-import { Provider } from "react-redux"
-
 import type { AppProps } from "next/app"
+import { wrapper } from "../app/store"
 
-export default function App({ Component, pageProps }: AppProps) {
-  const { store } = wrapper.useWrappedStore({ Component, pageProps })
-
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  )
+// Убрали слово export отсюда
+function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
 }
+
+// Оставили экспорт ТОЛЬКО здесь
+export default wrapper.withRedux(App)
